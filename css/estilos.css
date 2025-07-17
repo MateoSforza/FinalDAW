@@ -1,0 +1,493 @@
+/* Archivo de estilos principal para Buscaminas */
+
+:root {
+    --color-bg: #f7f3ef;
+    --color-panel: #ffe0b2;
+    --color-celda: #fff8e1;
+    --color-celda-revelada: #fffde7;
+    --color-celda-borde: #ffe0b2;
+    --color-celda-borde-revelada: #bdbdbd;
+    --color-texto: #5d4037;
+    --color-numero: #1976d2;
+    --color-contador-bg: #fff3e0;
+    --color-contador-texto: #d84315;
+    --color-boton: #ffb300;
+    --color-boton-texto: #fff;
+    --color-modal-bg: #fffde7;
+    --color-modal-texto: #5d4037;
+    --color-link: #1976d2;
+    --color-celda-hover: #ffe082;
+    --color-celda-activa: #ffd54f;
+}
+body {
+    font-family: Arial, sans-serif;
+    background: var(--color-bg);
+    color: var(--color-texto);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#contenedor-principal {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    max-width: 500px;
+    min-height: 70vh;
+}
+#tablero-contenedor {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+#tablero {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
+    background: #888;
+    border-radius: 6px;
+    padding: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin: 0;
+    align-self: center;
+}
+#inicio-juego h1, h1 {
+    font-size: 2.8rem !important;
+    margin: 20px 0 18px 0 !important;
+    letter-spacing: 1.5px;
+    color: var(--color-numero);
+    text-align: center;
+}
+#form-nombre-jugador label {
+    font-size: 1.2rem;
+}
+#form-nombre-jugador input, #form-nombre-jugador select {
+    padding: 12px;
+    font-size: 1.15rem;
+    border-radius: 6px;
+    border: 1px solid #bdbdbd;
+    width: 90%;
+    margin-bottom: 10px;
+}
+#form-nombre-jugador select {
+    padding: 8px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #bdbdbd;
+    width: 60%;
+    margin-bottom: 10px;
+}
+#form-nombre-jugador button {
+    padding: 16px 40px;
+    font-size: 1.35rem;
+    border-radius: 8px;
+}
+
+#panel-superior {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--color-panel);
+    border-radius: 8px;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.15);
+}
+
+#contador-minas, #cronometro {
+    font-size: 2rem;
+    font-family: 'Courier New', Courier, monospace;
+    background: var(--color-contador-bg);
+    color: var(--color-contador-texto);
+    padding: 4px 12px;
+    border-radius: 4px;
+    min-width: 48px;
+    text-align: center;
+}
+
+#boton-reiniciar {
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    margin: 0 10px;
+    padding: 0;
+    transition: transform 0.1s;
+}
+#boton-reiniciar:active {
+    transform: scale(0.92);
+}
+#icono-reiniciar {
+    width: 36px;
+    height: 36px;
+    vertical-align: middle;
+}
+
+.fila-tablero {
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    background: none;
+    border-radius: 0;
+    padding: 0;
+}
+
+.celda {
+    width: 36px;
+    height: 36px;
+    background: var(--color-celda);
+    border: 2px solid var(--color-celda-borde);
+    border-radius: 4px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--color-texto);
+    cursor: pointer;
+    transition: background 0.15s, border 0.15s, box-shadow 0.15s;
+    outline: none;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.celda:hover:not(.revelada):not([disabled]) {
+    background: var(--color-celda-hover);
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.15);
+}
+.celda:active:not(.revelada):not([disabled]) {
+    background: var(--color-celda-activa);
+}
+.celda.revelada {
+    background: var(--color-celda-revelada);
+    border: 2px solid var(--color-celda-borde-revelada);
+    cursor: default;
+    color: var(--color-numero);
+    box-shadow: none;
+    animation: revelar 0.2s;
+}
+@keyframes revelar {
+    from { transform: scale(1.1); opacity: 0.5; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.celda[disabled], .celda.revelada {
+    pointer-events: none;
+}
+
+/* Colores para los números de minas vecinas */
+.celda.revelada {
+    color: var(--color-numero);
+}
+.celda.revelada:empty {
+    color: var(--color-texto);
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+.modal-contenido {
+    background: var(--color-modal-bg);
+    padding: 30px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+    text-align: center;
+    color: var(--color-modal-texto);
+}
+#cerrar-modal {
+    margin-top: 18px;
+    padding: 8px 20px;
+    background: var(--color-boton);
+    color: var(--color-boton-texto);
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+#cerrar-modal:hover, #cerrar-ranking:hover, #form-nombre-jugador button:hover, #form-contacto button:hover, #ordenar-puntaje:hover, #ordenar-fecha:hover {
+    background: #ffa000;
+}
+
+/* Formulario de inicio */
+#inicio-juego {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+#form-nombre-jugador {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    padding: 32px 28px 24px 28px;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(25, 118, 210, 0.08);
+    min-width: 320px;
+    max-width: 350px;
+    margin-bottom: 24px;
+    gap: 10px;
+}
+#form-nombre-jugador label {
+    align-self: flex-start;
+    font-size: 1.1rem;
+    margin-bottom: 2px;
+    color: #444;
+}
+#form-nombre-jugador input, #form-nombre-jugador select {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    border: 1px solid #bdbdbd;
+    margin-bottom: 10px;
+    background: #f7f3ef;
+}
+#form-nombre-jugador select {
+    width: 60%;
+    font-size: 1rem;
+    padding: 8px;
+}
+#form-nombre-jugador button {
+    padding: 16px 40px;
+    font-size: 1.35rem;
+    border-radius: 8px;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s;
+    margin-top: 8px;
+}
+#form-nombre-jugador button:hover {
+    background: #115293;
+}
+
+/* Responsividad */
+@media (max-width: 500px) {
+    #contenedor-principal {
+        max-width: 98vw;
+    }
+    .celda {
+        width: 28px;
+        height: 28px;
+        font-size: 1rem;
+    }
+    #panel-superior {
+        padding: 6px 6px;
+    }
+} 
+
+/* Modo oscuro */
+body.modo-oscuro {
+    --color-bg: #23272b;
+    --color-panel: #333b44;
+    --color-celda: #2c3136;
+    --color-celda-revelada: #3a4047;
+    --color-celda-borde: #23272b;
+    --color-celda-borde-revelada: #444b53;
+    --color-texto: #ffe0b2;
+    --color-numero: #90caf9;
+    --color-contador-bg: #111;
+    --color-contador-texto: #ffb300;
+    --color-boton: #1976d2;
+    --color-boton-texto: #fff;
+    --color-modal-bg: #23272b;
+    --color-modal-texto: #ffe0b2;
+    --color-link: #90caf9;
+    --color-celda-hover: #374151;
+    --color-celda-activa: #263238;
+}
+
+#boton-modo {
+    margin-top: 18px;
+    padding: 8px 20px;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.15s;
+}
+#boton-modo:hover {
+    background: #115293;
+}
+.boton-nivel {
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 8px 18px;
+    margin: 0 2px;
+    transition: background 0.15s, color 0.15s;
+}
+.boton-nivel[data-nivel="facil"] {
+    background: #388e3c;
+    color: #fff;
+}
+.boton-nivel[data-nivel="medio"] {
+    background: #ffb300;
+    color: #fff;
+}
+.boton-nivel[data-nivel="dificil"] {
+    background: #d32f2f;
+    color: #fff;
+}
+.boton-nivel.selected, .boton-nivel:active {
+    outline: 2px solid #1976d2;
+    filter: brightness(1.1);
+}
+.botones-nivel-juego {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+.botones-nivel-juego.oculto {
+    display: none;
+}
+#botones-abajo {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    width: 100vw;
+    max-width: 400px;
+}
+#botones-abajo button {
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 8px 18px;
+    transition: background 0.15s, color 0.15s;
+}
+#boton-inspiracion {
+    background: #1976d2;
+    color: #fff;
+}
+#boton-inspiracion:hover {
+    background: #1565c0;
+}
+#boton-contacto {
+    background: #388e3c;
+    color: #fff;
+}
+#boton-contacto:hover {
+    background: #2e7d32;
+}
+#boton-github {
+    background: #222;
+    color: #fff;
+}
+#boton-github:hover {
+    background: #444;
+}
+#icono-modo {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    color: #1976d2;
+    filter: drop-shadow(0 0 2px #1976d2);
+}
+body.modo-oscuro #icono-modo {
+    color: #90caf9;
+    filter: drop-shadow(0 0 2px #90caf9);
+} 
+
+#contacto-main {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#contacto-main h1 {
+    font-size: 2.8rem;
+    margin: 20px 0 18px 0;
+    letter-spacing: 1.5px;
+    color: var(--color-numero);
+    text-align: center;
+}
+#form-contacto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    padding: 32px 28px 24px 28px;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(25, 118, 210, 0.08);
+    min-width: 320px;
+    max-width: 350px;
+    margin-bottom: 24px;
+    gap: 10px;
+}
+#form-contacto label {
+    align-self: flex-start;
+    font-size: 1.1rem;
+    margin-bottom: 2px;
+    color: #444;
+}
+#form-contacto input, #form-contacto textarea {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    border: 1px solid #bdbdbd;
+    margin-bottom: 10px;
+    background: #f7f3ef;
+    resize: none;
+}
+#form-contacto textarea {
+    min-height: 80px;
+    max-height: 200px;
+}
+#form-contacto button {
+    padding: 12px 28px;
+    font-size: 1.15rem;
+    border-radius: 6px;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s;
+    margin-top: 8px;
+}
+#form-contacto button:hover {
+    background: #115293;
+}
+#mensaje-contacto {
+    margin-top: 10px;
+    font-size: 1.1rem;
+    text-align: center;
+}
+#contacto-main a {
+    color: var(--color-numero);
+    text-decoration: underline;
+    font-size: 1.1rem;
+    margin-top: 10px;
+    display: block;
+    text-align: center;
+} 

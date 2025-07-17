@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script>try{if(localStorage.getItem('modoOscuro')==='true'){document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('modo-oscuro');});}}catch(e){}</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Buscaminas TP Final</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/reset.css">
+</head>
+<body>
+    <!-- Eliminar el botón de modo claro/oscuro y su script -->
+    <main id="contacto-main">
+        <h1>Contacto</h1>
+        <form id="form-contacto" autocomplete="off">
+            <label for="contacto-nombre">Nombre:</label>
+            <input type="text" id="contacto-nombre" name="contacto-nombre" maxlength="30" required>
+
+            <label for="contacto-mail">Correo electrónico:</label>
+            <input type="email" id="contacto-mail" name="contacto-mail" maxlength="40" required>
+
+            <label for="contacto-mensaje">Mensaje:</label>
+            <textarea id="contacto-mensaje" name="contacto-mensaje" rows="4" maxlength="300" required></textarea>
+
+            <button type="submit">Enviar</button>
+        </form>
+        <div id="mensaje-contacto" style="display:none;"></div>
+        <a href="https://github.com/tuusuario/tu-repo-buscaminas" target="_blank" rel="noopener">Ver código en Github</a>
+        <a href="#" id="volver-juego">Volver al juego</a>
+    </main>
+    <script src="js/contacto.js"></script>
+    <script>
+    // Redirigir según el último estado guardado
+    document.getElementById('volver-juego').onclick = function(e) {
+        e.preventDefault();
+        var estado = localStorage.getItem('buscaminas_ultimo_estado') || 'inicio';
+        window.location.href = 'index.html' + (estado === 'juego' ? '#juego' : '');
+    };
+    </script>
+</body>
+</html> 
