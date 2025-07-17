@@ -68,7 +68,7 @@ botonContacto.onclick = function() {
 // Botón Github (placeholder)
 var botonGithub = document.getElementById('boton-github');
 botonGithub.onclick = function() {
-    window.open('https://github.com/tuusuario/tu-repo-buscaminas', '_blank');
+    window.open('https://github.com/MateoSforza/D.A.W', '_blank');
 };
 
 function mostrarBotonesNivel(mostrar) {
