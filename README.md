@@ -50,7 +50,7 @@ Este proyecto es una versión web interactiva del clásico juego Buscaminas, des
 
 ## Créditos
 - Inspirado en minesweeper.online
-- Desarrollado por Mateo Sforza para DAW 2025
+- Desarrollado por Mateo Sforza y Marco Portaro para DAW 2025
 
 ---
 
