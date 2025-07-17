@@ -4,11 +4,6 @@ Proyecto final para la materia **Desarrollo y Arquitecturas Web 2025**.
 
 Este proyecto es una versión web interactiva del clásico juego Buscaminas, desarrollada con HTML5, CSS3 y JavaScript ES5, cumpliendo con buenas prácticas de organización, accesibilidad y experiencia de usuario.
 
-## Demo
-
-- [pages](https://mateosforza.github.io/D.A.W/) — Juega directamente online
-- [original](https://minesweeper.online/es/) — Página de inspiración
-
 ## Características principales
 
 - Validación de nombre de usuario
@@ -54,7 +49,7 @@ Este proyecto es una versión web interactiva del clásico juego Buscaminas, des
 - JavaScript ES5
 
 ## Créditos
-- Inspirado en [minesweeper.online](https://minesweeper.online/es/)
+- Inspirado en minesweeper.online
 - Desarrollado por Mateo Sforza para DAW 2025
 
 ---
