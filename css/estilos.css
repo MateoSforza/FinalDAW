@@ -1,11 +1,8 @@
-/* Archivo de estilos principal para Buscaminas */
-/* Autor: Mateo Sforza - Estilos y diseño responsivo */
-
 :root {
     --color-activa: #ffd54f;
     --color-bg: #f7f3ef;
-    --color-boton: #ffb300;
-    --color-boton-texto: #fff;
+    --color-boton: #00cfee;
+    --color-boton-texto: #030202;
     --color-celda: #fff8e1;
     --color-celda-activa: #ffd54f;
     --color-celda-borde: #ffe0b2;
@@ -16,10 +13,10 @@
     --color-contador-texto: #d84315;
     --color-link: #1976d2;
     --color-modal-bg: #fffde7;
-    --color-modal-texto: #5d4037;
+    --color-modal-texto: #000000;
     --color-numero: #1976d2;
     --color-panel: #ffe0b2;
-    --color-texto: #5d4037;
+    --color-texto: #000000;
 }
 
 body {
@@ -43,13 +40,19 @@ body {
     margin-bottom: 10px;
 }
 
-
 .titulo-principal {
-    color: var(--color-numero);
+    background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+    padding: 12px 30px;
+    border-radius: 30px;
     font-size: 2.2rem;
     letter-spacing: 1px;
+    font-weight: bold;
     margin: 10px 0 6px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, color 0.3s;
 }
+
 
 .seccion-juego {
     display: none;
@@ -232,7 +235,7 @@ body {
 .celda.revelada:empty {
     background: var(--color-celda-revelada);
 }
-    
+
 
 .modal {
     align-items: center;
@@ -298,16 +301,22 @@ body {
 }
 
 #form-nombre-jugador input, #form-nombre-jugador select {
-    border: 1px solid #bdbdbd;
-    border-radius: 6px;
+    background: #00cfee;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
     font-size: 1.15rem;
     margin-bottom: 10px;
     padding: 12px;
     width: 90%;
 }
 
+
 #form-nombre-jugador button {
-    background: var(--color-boton);
+    background: #00cfee;
+    color: #000;
+    font-weight: bold;
     border: none;
     border-radius: 8px;
     color: var(--color-boton-texto);
@@ -319,7 +328,7 @@ body {
 }
 
 #form-nombre-jugador button:hover {
-    background: #e6a800;
+    background: #00e62a;
 }
 
 @media (max-width: 500px) {
@@ -479,11 +488,18 @@ body.modo-oscuro #icono-modo {
 }
 
 #contacto-main h1 {
-    color: var(--color-numero);
+    background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+    border-radius: 30px;
+    padding: 12px 30px;
     font-size: 2.5rem;
-    margin-bottom: 30px;
+    font-weight: bold;
     text-align: center;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, color 0.3s;
 }
+
 
 #form-contacto {
     align-items: center;
@@ -498,17 +514,25 @@ body.modo-oscuro #icono-modo {
 
 #form-contacto label {
     align-self: flex-start;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: bold;
+    color: var(--color-boton-texto);
+    transition: color 0.3s;
 }
 
+
 #form-contacto input, #form-contacto textarea {
-    border: 1px solid #bdbdbd;
-    border-radius: 6px;
+    background: var(--color-boton);
+    color: var(--color-boton-texto);
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
     font-size: 1rem;
     padding: 12px;
     width: 100%;
+    transition: background 0.3s, color 0.3s;
 }
+
 
 #form-contacto textarea {
     font-family: Arial, sans-serif;
@@ -528,7 +552,7 @@ body.modo-oscuro #icono-modo {
 }
 
 #form-contacto button:hover {
-    background: #e6a800;
+    background: #00e62a;
 }
 
 #mensaje-contacto {
@@ -538,8 +562,37 @@ body.modo-oscuro #icono-modo {
     text-align: center;
 }
 
-#contacto-main a {
-    color: var(--color-link);
-    margin: 10px 0;
+body.modo-oscuro #form-contacto label {
+    color: #e0e0e0;
+}
+
+.boton-contacto-secundario {
+    background: var(--color-boton);
+    border: none;
+    border-radius: 4px;
+    color: var(--color-boton-texto);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    font-family: Arial, sans-serif;
+    padding: 10px 20px;
+    transition: background 0.2s;
+    text-align: center;
     text-decoration: none;
-} 
+    display: inline-block;
+}
+
+
+.boton-contacto-secundario:hover {
+    background: #3a00e6;
+}
+
+.botones-contacto-abajo {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 20px;
+    flex-wrap: wrap;
+}
