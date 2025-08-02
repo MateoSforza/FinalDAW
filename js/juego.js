@@ -17,7 +17,7 @@ var nivelActual = 'facil';
 var timer = null;
 var tiempo = 0;
 var juegoIniciado = false;
-var juegoTerminado = false;
+var juegoTerminado = false; 
 var ultimaDuracion = 0;
 
 // ============================================================================
