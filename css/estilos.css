@@ -31,7 +31,9 @@ body {
     font-family: Arial, sans-serif;
     justify-content: flex-start;
     min-height: 100vh;
+    margin: 0;
 }
+
 
 /* Nuevos estilos para reemplazar estilos en línea */
 .header-principal {
