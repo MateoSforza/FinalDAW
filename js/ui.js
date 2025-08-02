@@ -23,3 +23,13 @@ document.getElementById('boton-cambiar-nombre').onclick = function() {
     document.getElementById('juego').style.display = 'none';
     document.getElementById('inicio-juego').style.display = 'block';
 }; 
+
+// Botón volver al juego desde contacto.html
+var volverJuego = document.getElementById('volver-juego');
+if (volverJuego) {
+    volverJuego.onclick = function(e) {
+        e.preventDefault();
+        var estado = localStorage.getItem('buscaminas_ultimo_estado') || 'inicio';
+        window.location.href = 'index.html' + (estado === 'juego' ? '#juego' : '');
+    };
+}

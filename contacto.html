@@ -30,13 +30,6 @@
     </main>
     <script src="js/contacto.js"></script>
     <script src="js/modo-oscuro.js"></script>
-    <script>
-    // Redirigir según el último estado guardado
-    document.getElementById('volver-juego').onclick = function(e) {
-        e.preventDefault();
-        var estado = localStorage.getItem('buscaminas_ultimo_estado') || 'inicio';
-        window.location.href = 'index.html' + (estado === 'juego' ? '#juego' : '');
-    };
-    </script>
+    <script src="js/ui.js"></script>
 </body>
 </html> 
