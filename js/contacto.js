@@ -1,5 +1,4 @@
 'use strict';
-// Autor: Mateo Sforza - Validación de formularios y envío de correo
 
 var formContacto = document.getElementById('form-contacto');
 var inputNombre = document.getElementById('contacto-nombre');

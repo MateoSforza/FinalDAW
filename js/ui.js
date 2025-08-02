@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var botonGithub = document.getElementById('boton-github');
     if (botonGithub) {
         botonGithub.onclick = function () {
-            window.open('https://github.com/MateoSforza/D.A.W', '_blank');
+            window.open('https://github.com/MateoSforza/FinalDAW', '_blank');
         };
     }
 
