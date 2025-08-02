@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/reset.css">
 </head>
 <body>
-    <!-- Eliminar el botón de modo claro/oscuro y su script -->
+    <button id="boton-modo" type="button"><span id="icono-modo">🌙</span></button>
     <main id="contacto-main">
         <h1>Contacto</h1>
         <form id="form-contacto" autocomplete="off">
@@ -24,11 +24,12 @@
 
             <button type="submit">Enviar</button>
         </form>
-        <div id="mensaje-contacto" style="display:none;"></div>
+        <div id="mensaje-contacto"></div>
         <a href="https://github.com/tuusuario/tu-repo-buscaminas" target="_blank" rel="noopener">Ver código en Github</a>
         <a href="#" id="volver-juego">Volver al juego</a>
     </main>
     <script src="js/contacto.js"></script>
+    <script src="js/modo-oscuro.js"></script>
     <script>
     // Redirigir según el último estado guardado
     document.getElementById('volver-juego').onclick = function(e) {

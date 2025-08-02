@@ -1,57 +1,108 @@
-# Buscaminas Web
+# Buscaminas TP Final
 
-Proyecto final para la materia **Desarrollo y Arquitecturas Web 2025**.
+## Descripción
+Juego de Buscaminas desarrollado como trabajo práctico final para la materia Desarrollo de Aplicaciones Web.
 
-Este proyecto es una versión web interactiva del clásico juego Buscaminas, desarrollada con HTML5, CSS3 y JavaScript ES5, cumpliendo con buenas prácticas de organización, accesibilidad y experiencia de usuario.
+## Características
+- ✅ **Modo oscuro/claro** con persistencia en localStorage
+- ✅ **Tres niveles de dificultad**: Fácil (8x8, 10 minas), Medio (12x12, 25 minas), Difícil (16x16, 40 minas)
+- ✅ **Sistema de ranking** con ordenamiento por puntaje y fecha
+- ✅ **Cronómetro** y contador de minas
+- ✅ **Interfaz responsive** para dispositivos móviles
+- ✅ **Validación de formularios** sin uso de alert()
+- ✅ **Código modular** separado en archivos específicos
+- ✅ **Estilos CSS organizados** alfabéticamente
+- ✅ **Funcionalidad completa** sin código bloqueante
 
-## Características principales
+## Estructura del Proyecto
 
-- Validación de nombre de usuario
-- Generación dinámica del tablero con minas aleatorias
-- Primer clic siempre seguro (sin mina ni minas vecinas)
-- Clic izquierdo: revela celda / Clic derecho: coloca bandera
-- Expansión recursiva de celdas vacías
-- Detección de victoria y derrota
-- Temporizador y contador de minas
-- Reinicio sin recargar la página
-- Modales para mensajes de juego
-- Sonidos para eventos
-- Modo claro/oscuro con persistencia (excepto contacto)
-- Ranking de partidas por nivel y orden
-- Selección de dificultad (tres niveles)
-- Página de contacto con validación y envío por mailto
-- Estética cuidada: colores cálidos, animaciones, botones con íconos
-- Accesibilidad y experiencia profesional
+```
+Buscaminas_FinalWEB/
+├── index.html              # Página principal del juego
+├── contacto.html           # Página de contacto
+├── css/
+│   ├── estilos.css        # Estilos principales (propiedades ordenadas)
+│   └── reset.css          # Reset CSS
+├── js/
+│   ├── juego.js           # Lógica principal del juego
+│   ├── ui.js              # Funcionalidades de interfaz
+│   ├── modo-oscuro.js     # Gestión del modo oscuro
+│   └── contacto.js        # Lógica de la página de contacto
+└── img/                   # Recursos gráficos
+```
 
-## Estructura del proyecto
+## Correcciones Implementadas
 
-- `index.html` — Juego principal
-- `contacto.html` — Página de contacto
-- `css/estilos.css` — Estilos principales
-- `js/juego.js` — Lógica del juego
-- `js/contacto.js` — Lógica del formulario de contacto
-- `img/` — Imágenes e íconos
-- `.gitignore` — Buenas prácticas para evitar archivos innecesarios
-- `README.md` — Este archivo
-- `Minesweeper-Requeriments.pdf` — Requerimientos detallados
+### ✅ Contacto no guarda el modo oscuro
+- Agregado botón de modo oscuro en `contacto.html`
+- Creado archivo `js/modo-oscuro.js` para funcionalidad compartida
 
-## Instalación y uso local
+### ✅ Se prohíbe el uso de código bloqueante (alert)
+- Reemplazado `alert()` con modal personalizado
+- Implementado sistema de mensajes no bloqueante
 
-1. Clona el repositorio:
-   ```sh
-   git clone https://github.com/MateoSforza/D.A.W.git
-   ```
-2. Abre `index.html` en tu navegador preferido.
+### ✅ Arreglar el orden declarativo de las funciones
+- Reorganizado `juego.js` con secciones claras:
+  - Variables globales
+  - Elementos del DOM
+  - Funciones de validación
+  - Funciones de configuración
+  - Funciones de inicialización
+  - Funciones de lógica del juego
+  - Funciones de interfaz y utilidades
+  - Event listeners
 
-## Tecnologías utilizadas
+### ✅ Uso de estilos en línea
+- Eliminados todos los estilos en línea del HTML
+- Movidos a clases CSS específicas
+- Propiedades CSS ordenadas alfabéticamente
+
+### ✅ Uso de javascript desde el html
+- Separado JavaScript del HTML
+- Creado archivo `js/ui.js` para funcionalidades de UI
+- Creado archivo `js/modo-oscuro.js` para modo oscuro
+
+### ✅ Se puede ganar con las minas en negativo
+- Agregada validación para evitar contador negativo
+- Implementada lógica de protección en `colocarBandera()`
+
+### ✅ Ordenar las propiedades del css
+- Reorganizadas todas las propiedades CSS en orden alfabético
+- Mejorada la legibilidad y mantenibilidad
+
+### ✅ El código JavaScript se puede subdividir en archivos
+- `juego.js`: Lógica principal del juego
+- `ui.js`: Funcionalidades de interfaz
+- `modo-oscuro.js`: Gestión del modo oscuro
+- `contacto.js`: Lógica de contacto
+
+## Tecnologías Utilizadas
 - HTML5
-- CSS3
-- JavaScript ES5
+- CSS3 (con variables CSS)
+- JavaScript ES5 (compatibilidad)
+- LocalStorage para persistencia
 
-## Créditos
-- Inspirado en minesweeper.online
-- Desarrollado por Mateo Sforza y Marco Portaro para DAW 2025
+## Autores
+- **Marco Portaro** - Desarrollo principal
+- **Mateo Sforza** - Contribuciones adicionales
 
----
+## Instalación
+1. Clonar el repositorio
+2. Abrir `index.html` en un navegador web
+3. ¡Jugar!
 
-> Para más detalles sobre reglas y requerimientos, ver el archivo `Minesweeper-Requeriments.pdf`. 
+## Funcionalidades del Juego
+- **Click izquierdo**: Revelar celda
+- **Click derecho**: Colocar/quitar bandera
+- **Primer click**: Nunca es mina
+- **Victoria**: Revelar todas las celdas sin minas
+- **Derrota**: Click en mina
+
+## Commits Representativos
+- `feat: implementar modo oscuro persistente`
+- `fix: eliminar uso de alert() bloqueante`
+- `refactor: reorganizar funciones por orden declarativo`
+- `style: eliminar estilos en línea y ordenar CSS`
+- `fix: prevenir contador de minas negativo`
+- `refactor: separar JavaScript en módulos`
+- `docs: actualizar README con correcciones` 

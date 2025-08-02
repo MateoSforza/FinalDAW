@@ -10,8 +10,8 @@
 </head>
 <body>
     <button id="boton-modo" type="button"><span id="icono-modo">🌙</span></button>
-    <header style="display:flex; flex-direction:column; align-items:center; margin-bottom:10px;">
-        <h1 style="font-size:2.2rem; margin:10px 0 6px 0; letter-spacing:1px; color:var(--color-numero);">Buscaminas TP Final</h1>
+    <header class="header-principal">
+        <h1 class="titulo-principal">Buscaminas TP Final</h1>
         <div class="botones-nivel-juego oculto">
             <button class="boton-nivel" data-nivel="facil">Fácil</button>
             <button class="boton-nivel" data-nivel="medio">Medio</button>
@@ -32,16 +32,16 @@
                 <button type="submit">Comenzar</button>
             </form>
         </section>
-        <section id="juego" style="display:none;">
+        <section id="juego" class="seccion-juego">
             <div id="panel-superior">
                 <span id="contador-minas">10</span>
                 <button id="boton-reiniciar" title="Reiniciar partida">
                     <span id="icono-reiniciar">🙂</span>
                 </button>
                 <span id="cronometro">000</span>
-                <button id="boton-cambiar-nombre" style="margin-left:16px; background:#ffb300; color:#fff; border:none; border-radius:4px; padding:8px 16px; font-size:1rem; cursor:pointer;">Cambiar nombre</button>
+                <button id="boton-cambiar-nombre">Cambiar nombre</button>
             </div>
-            <button id="boton-ranking" type="button" style="margin-bottom:10px;">Ver ranking</button>
+            <button id="boton-ranking" type="button">Ver ranking</button>
             <div id="tablero-contenedor"><div id="tablero"></div></div>
         </section>
     </main>
@@ -51,63 +51,31 @@
         <button id="boton-github">Github</button>
     </div>
     <!-- Modal para mensajes de victoria/derrota -->
-    <div id="modal-mensaje" class="modal" style="display:none;">
+    <div id="modal-mensaje" class="modal">
         <div class="modal-contenido">
             <span id="mensaje-final"></span>
             <button id="cerrar-modal">Cerrar</button>
         </div>
     </div>
     <!-- Modal para ranking -->
-    <div id="modal-ranking" class="modal" style="display:none;">
-        <div class="modal-contenido" style="max-width:350px;">
+    <div id="modal-ranking" class="modal">
+        <div class="modal-contenido modal-ranking-contenido">
             <h2>Ranking de Partidas</h2>
-            <div style="margin-bottom:10px;">
+            <div class="botones-ordenamiento">
                 <button id="ordenar-puntaje">Ordenar por puntaje</button>
                 <button id="ordenar-fecha">Ordenar por fecha</button>
             </div>
-            <table id="tabla-ranking" style="width:100%; font-size:0.95rem;">
+            <table id="tabla-ranking">
                 <thead>
                     <tr><th>Jugador</th><th>Puntaje</th><th>Duración</th><th>Fecha</th></tr>
                 </thead>
                 <tbody></tbody>
             </table>
-            <button id="cerrar-ranking" style="margin-top:16px;">Cerrar</button>
+            <button id="cerrar-ranking">Cerrar</button>
         </div>
     </div>
     <script src="js/juego.js"></script>
-    <script>
-    // Alternar modo claro/oscuro con emoji de luna o sol
-    var botonModo = document.getElementById('boton-modo');
-    var iconoModo = document.getElementById('icono-modo');
-    var modoOscuro = false;
-    botonModo.onclick = function() {
-        modoOscuro = !modoOscuro;
-        document.body.classList.toggle('modo-oscuro');
-        if (modoOscuro) {
-            iconoModo.textContent = '☀️';
-        } else {
-            iconoModo.textContent = '🌙';
-        }
-    };
-    // Cambiar carita de reinicio según estado
-    function setCarita(estado) {
-        var icono = document.getElementById('icono-reiniciar');
-        if (estado === 'ganar') icono.textContent = '😎';
-        else if (estado === 'perder') icono.textContent = '😵';
-        else icono.textContent = '🙂';
-    }
-    window.setCarita = setCarita;
-    // Guardar estado antes de ir a contacto
-    document.getElementById('boton-contacto').onclick = function() {
-        var jugando = document.getElementById('juego').style.display !== 'none';
-        localStorage.setItem('buscaminas_ultimo_estado', jugando ? 'juego' : 'inicio');
-        window.location.href = 'contacto.html';
-    };
-    // Botón cambiar nombre
-    document.getElementById('boton-cambiar-nombre').onclick = function() {
-        document.getElementById('juego').style.display = 'none';
-        document.getElementById('inicio-juego').style.display = 'block';
-    };
-    </script>
+    <script src="js/modo-oscuro.js"></script>
+    <script src="js/ui.js"></script>
 </body>
 </html> 

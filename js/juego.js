@@ -1,9 +1,9 @@
 'use strict';
 
-// Archivo principal de lógica del juego Buscaminas
-// Aquí se implementará la generación del tablero, manejo de eventos y lógica principal
+// ============================================================================
+// VARIABLES GLOBALES
+// ============================================================================
 
-// Variables globales
 var filas = 8;
 var columnas = 8;
 var minas = 10;
@@ -13,8 +13,16 @@ var nombreJugador = '';
 var primerClick = true;
 var primerClickPos = null;
 var nivelActual = 'facil';
+var timer = null;
+var tiempo = 0;
+var juegoIniciado = false;
+var juegoTerminado = false;
+var ultimaDuracion = 0;
 
-// Elementos del DOM
+// ============================================================================
+// ELEMENTOS DEL DOM
+// ============================================================================
+
 var formNombre = document.getElementById('form-nombre-jugador');
 var inputNombre = document.getElementById('nombre-jugador');
 var seccionInicio = document.getElementById('inicio-juego');
@@ -23,53 +31,53 @@ var tableroDiv = document.getElementById('tablero');
 var contadorMinas = document.getElementById('contador-minas');
 var cronometro = document.getElementById('cronometro');
 var botonReiniciar = document.getElementById('boton-reiniciar');
-var timer = null;
-var tiempo = 0;
-var juegoIniciado = false;
-var juegoTerminado = false;
 var botonRanking = document.getElementById('boton-ranking');
 var modalRanking = document.getElementById('modal-ranking');
 var cerrarRanking = document.getElementById('cerrar-ranking');
 var tablaRanking = document.getElementById('tabla-ranking').getElementsByTagName('tbody')[0];
 var ordenarPuntaje = document.getElementById('ordenar-puntaje');
 var ordenarFecha = document.getElementById('ordenar-fecha');
-var ultimaDuracion = 0;
 var selectDificultad = document.getElementById('dificultad');
 
-// Botones de nivel
-var botonesNivel = document.getElementsByClassName('boton-nivel');
-for (var i = 0; i < botonesNivel.length; i++) {
-    botonesNivel[i].onclick = function() {
-        var nivel = this.getAttribute('data-nivel');
-        setDificultad(nivel);
-        nivelActual = nivel;
-        for (var j = 0; j < botonesNivel.length; j++) {
-            botonesNivel[j].classList.remove('selected');
-        }
-        this.classList.add('selected');
-        primerClick = true;
-        primerClickPos = null;
-        iniciarJuego();
-    };
-    if (botonesNivel[i].getAttribute('data-nivel') === nivelActual) {
-        botonesNivel[i].classList.add('selected');
-    }
+// ============================================================================
+// FUNCIONES DE VALIDACIÓN
+// ============================================================================
+
+function validarNombre(nombre) {
+    var regex = /^[a-zA-Z0-9]{3,}$/;
+    return regex.test(nombre);
 }
-// Botón inspiración
-var botonInspiracion = document.getElementById('boton-inspiracion');
-botonInspiracion.onclick = function() {
-    window.open('https://minesweeper.online/es/', '_blank');
-};
-// Botón contacto
-var botonContacto = document.getElementById('boton-contacto');
-botonContacto.onclick = function() {
-    window.location.href = 'contacto.html';
-};
-// Botón Github (placeholder)
-var botonGithub = document.getElementById('boton-github');
-botonGithub.onclick = function() {
-    window.open('https://github.com/MateoSforza/D.A.W', '_blank');
-};
+
+function mostrarErrorNombre() {
+    var modal = document.getElementById('modal-mensaje');
+    var mensajeFinal = document.getElementById('mensaje-final');
+    mensajeFinal.textContent = 'El nombre debe tener al menos 3 letras o números, sin espacios ni símbolos.';
+    modal.style.display = 'block';
+    var cerrar = document.getElementById('cerrar-modal');
+    cerrar.onclick = function() {
+        modal.style.display = 'none';
+    };
+}
+
+// ============================================================================
+// FUNCIONES DE CONFIGURACIÓN Y DIFICULTAD
+// ============================================================================
+
+function setDificultad(dificultad) {
+    switch(dificultad) {
+        case 'facil':
+            filas = 8; columnas = 8; minas = 10;
+            break;
+        case 'medio':
+            filas = 12; columnas = 12; minas = 25;
+            break;
+        case 'dificil':
+            filas = 16; columnas = 16; minas = 40;
+            break;
+    }
+    minasRestantes = minas;
+    contadorMinas.textContent = minasRestantes;
+}
 
 function mostrarBotonesNivel(mostrar) {
     var contenedor = document.getElementsByClassName('botones-nivel-juego')[0];
@@ -80,34 +88,9 @@ function mostrarBotonesNivel(mostrar) {
     }
 }
 
-// Validación del nombre y comienzo del juego
-formNombre.addEventListener('submit', function(evento) {
-    evento.preventDefault();
-    var nombre = inputNombre.value.trim();
-    var dificultad = selectDificultad.value;
-    if (validarNombre(nombre)) {
-        nombreJugador = nombre;
-        setDificultad(dificultad);
-        seccionInicio.style.display = 'none';
-        seccionJuego.style.display = 'block';
-        primerClick = true;
-        iniciarJuego();
-        mostrarBotonesNivel(true);
-    } else {
-        mostrarErrorNombre();
-    }
-});
-
-function validarNombre(nombre) {
-    // Solo letras y números, mínimo 3 caracteres
-    var regex = /^[a-zA-Z0-9]{3,}$/;
-    return regex.test(nombre);
-}
-
-function mostrarErrorNombre() {
-    // Modal simple para mostrar error (puedes mejorar esto luego)
-    alert('El nombre debe tener al menos 3 letras o números, sin espacios ni símbolos.');
-}
+// ============================================================================
+// FUNCIONES DE INICIALIZACIÓN DEL JUEGO
+// ============================================================================
 
 function iniciarJuego() {
     minasRestantes = minas;
@@ -180,6 +163,10 @@ function generarTablero(excluirF, excluirC) {
     }
 }
 
+// ============================================================================
+// FUNCIONES DE LÓGICA DEL JUEGO
+// ============================================================================
+
 function contarMinasVecinas(f, c) {
     var total = 0;
     for (var df = -1; df <= 1; df++) {
@@ -211,87 +198,86 @@ function banderaCeldaHandler(evento) {
 }
 
 function revelarCelda(f, c) {
-    if (juegoTerminado) return;
-    if (primerClick) {
-        primerClick = false;
-        primerClickPos = {f: f, c: c};
-        generarTablero(f, c); // Generar minas evitando el primer click y sus vecinos
-        if (!juegoIniciado) {
-            iniciarTemporizador();
-            juegoIniciado = true;
-        }
-    }
     var celda = tablero[f][c];
     if (celda.revelada || celda.bandera) {
         return;
     }
-    celda.revelada = true;
-    var boton = buscarBotonCelda(f, c);
-    if (!boton) return;
-    boton.classList.add('revelada');
+    
+    if (primerClick) {
+        primerClick = false;
+        primerClickPos = {f: f, c: c};
+        generarTablero(f, c); // Generar tablero con minas evitando la primera celda
+        iniciarTemporizador();
+        juegoIniciado = true;
+    }
+    
     if (celda.mina) {
-        boton.textContent = '💣';
-        mostrarMensaje('¡Perdiste! Pisaste una mina.');
-        deshabilitarTablero();
+        // Perdió
+        celda.revelada = true;
+        var boton = buscarBotonCelda(f, c);
+        if (boton) {
+            boton.textContent = '💣';
+            boton.classList.add('revelada', 'mina');
+        }
+        mostrarTodasLasMinas();
         terminarJuego();
-        sonidoPerder.play();
+        mostrarMensaje('¡Perdiste! Has pisado una mina.');
         if (window.setCarita) window.setCarita('perder');
         return;
     }
-    if (celda.minasVecinas > 0) {
-        boton.textContent = celda.minasVecinas;
-    } else {
-        boton.textContent = '';
-        expandirVacias(f, c);
+    
+    celda.revelada = true;
+    var boton = buscarBotonCelda(f, c);
+    if (boton) {
+        boton.classList.add('revelada');
+        if (celda.minasVecinas > 0) {
+            boton.textContent = celda.minasVecinas;
+            boton.style.color = getColorNumero(celda.minasVecinas);
+        } else {
+            expandirVacias(f, c);
+        }
     }
+    
     if (verificarVictoria()) {
-        mostrarMensaje('¡Ganaste! Has encontrado todas las minas.');
-        deshabilitarTablero();
         terminarJuego();
-        sonidoGanar.play();
+        mostrarMensaje('¡Ganaste! Has encontrado todas las minas.');
         if (window.setCarita) window.setCarita('ganar');
     }
 }
 
 function moverMina(f, c) {
-    // Quitar la mina de la celda clickeada
+    // Mover la mina a una posición aleatoria
+    var nuevaF, nuevaC;
+    do {
+        nuevaF = Math.floor(Math.random() * filas);
+        nuevaC = Math.floor(Math.random() * columnas);
+    } while ((nuevaF === f && nuevaC === c) || tablero[nuevaF][nuevaC].mina);
+    
     tablero[f][c].mina = false;
-    // Buscar una celda vacía sin mina
-    var libres = [];
-    for (var i = 0; i < filas; i++) {
-        for (var j = 0; j < columnas; j++) {
-            if (!tablero[i][j].mina && (i !== f || j !== c)) {
-                libres.push({f: i, c: j});
+    tablero[nuevaF][nuevaC].mina = true;
+    
+    // Recalcular minas vecinas
+    for (var df = -1; df <= 1; df++) {
+        for (var dc = -1; dc <= 1; dc++) {
+            var nf = f + df;
+            var nc = c + dc;
+            if (nf >= 0 && nf < filas && nc >= 0 && nc < columnas) {
+                tablero[nf][nc].minasVecinas = contarMinasVecinas(nf, nc);
             }
         }
-    }
-    if (libres.length > 0) {
-        var idx = Math.floor(Math.random() * libres.length);
-        tablero[libres[idx].f][libres[idx].c].mina = true;
     }
 }
 
 function expandirVacias(f, c) {
     for (var df = -1; df <= 1; df++) {
         for (var dc = -1; dc <= 1; dc++) {
+            if (df === 0 && dc === 0) continue;
             var nf = f + df;
             var nc = c + dc;
             if (nf >= 0 && nf < filas && nc >= 0 && nc < columnas) {
-                if (!(df === 0 && dc === 0)) {
-                    var celdaVecina = tablero[nf][nc];
-                    if (!celdaVecina.revelada && !celdaVecina.mina && !celdaVecina.bandera) {
-                        celdaVecina.revelada = true;
-                        var botonVecino = buscarBotonCelda(nf, nc);
-                        if (botonVecino) {
-                            botonVecino.classList.add('revelada');
-                            if (celdaVecina.minasVecinas > 0) {
-                                botonVecino.textContent = celdaVecina.minasVecinas;
-                            } else {
-                                botonVecino.textContent = '';
-                                expandirVacias(nf, nc);
-                            }
-                        }
-                    }
+                var celdaVecina = tablero[nf][nc];
+                if (!celdaVecina.revelada && !celdaVecina.bandera) {
+                    revelarCelda(nf, nc);
                 }
             }
         }
@@ -309,6 +295,10 @@ function verificarVictoria() {
     }
     return true;
 }
+
+// ============================================================================
+// FUNCIONES DE INTERFAZ Y UTILIDADES
+// ============================================================================
 
 function mostrarMensaje(mensaje) {
     var modal = document.getElementById('modal-mensaje');
@@ -341,10 +331,16 @@ function colocarBandera(f, c, boton) {
     if (celda.bandera) {
         boton.textContent = '🚩';
         minasRestantes--;
-        sonidoBandera.play();
+        if (typeof sonidoBandera !== 'undefined') {
+            sonidoBandera.play();
+        }
     } else {
         boton.textContent = '';
         minasRestantes++;
+    }
+    // Evitar que las minas vayan a negativo
+    if (minasRestantes < 0) {
+        minasRestantes = 0;
     }
     contadorMinas.textContent = minasRestantes;
 }
@@ -427,63 +423,112 @@ function mostrarRanking(orden) {
         partidas.sort(function(a, b) { return new Date(b.fecha) - new Date(a.fecha); });
     }
     tablaRanking.innerHTML = '';
-    for (var i = 0; i < partidas.length; i++) {
-        var fila = document.createElement('tr');
-        fila.innerHTML = '<td>' + partidas[i].jugador + '</td>' +
-                         '<td>' + partidas[i].puntaje + '</td>' +
-                         '<td>' + partidas[i].duracion + 's</td>' +
-                         '<td>' + partidas[i].fecha + '</td>';
-        tablaRanking.appendChild(fila);
-    }
-    modalRanking.style.display = 'flex';
+    partidas.forEach(function(partida) {
+        var fila = tablaRanking.insertRow();
+        fila.insertCell(0).textContent = partida.jugador;
+        fila.insertCell(1).textContent = partida.puntaje;
+        fila.insertCell(2).textContent = partida.duracion + 's';
+        fila.insertCell(3).textContent = partida.fecha;
+    });
+    modalRanking.style.display = 'block';
 }
 
-function setDificultad(dificultad) {
-    if (dificultad === 'facil') {
-        filas = 8;
-        columnas = 8;
-        minas = 10;
-    } else if (dificultad === 'medio') {
-        filas = 12;
-        columnas = 12;
-        minas = 25;
-    } else if (dificultad === 'dificil') {
-        filas = 16;
-        columnas = 16;
-        minas = 40;
+function mostrarTodasLasMinas() {
+    for (var f = 0; f < filas; f++) {
+        for (var c = 0; c < columnas; c++) {
+            var celda = tablero[f][c];
+            if (celda.mina) {
+                var boton = buscarBotonCelda(f, c);
+                if (boton) {
+                    boton.textContent = '💣';
+                    boton.classList.add('revelada', 'mina');
+                }
+            }
+        }
     }
 }
 
-// Sonidos
-var sonidoGanar = new Audio('img/ganar.mp3');
-var sonidoPerder = new Audio('img/perder.mp3');
-var sonidoBandera = new Audio('img/bandera.mp3');
+function getColorNumero(numero) {
+    var colores = ['', '#1976d2', '#388e3c', '#d32f2f', '#7b1fa2', '#f57c00', '#00796b', '#5d4037', '#424242'];
+    return colores[numero] || '#000';
+}
 
-// Asignar event listeners de reinicio y ranking (asegurar que siempre estén activos)
-botonReiniciar.onclick = reiniciarPartida;
-document.addEventListener('keydown', function(e) {
-    if (e.code === 'Space') {
-        reiniciarPartida();
+// ============================================================================
+// EVENT LISTENERS
+// ============================================================================
+
+// Validación del nombre y comienzo del juego
+formNombre.addEventListener('submit', function(evento) {
+    evento.preventDefault();
+    var nombre = inputNombre.value.trim();
+    var dificultad = selectDificultad.value;
+    if (validarNombre(nombre)) {
+        nombreJugador = nombre;
+        setDificultad(dificultad);
+        seccionInicio.style.display = 'none';
+        seccionJuego.style.display = 'block';
+        primerClick = true;
+        iniciarJuego();
+        mostrarBotonesNivel(true);
+    } else {
+        mostrarErrorNombre();
     }
 });
+
+// Botones de nivel
+var botonesNivel = document.getElementsByClassName('boton-nivel');
+for (var i = 0; i < botonesNivel.length; i++) {
+    botonesNivel[i].onclick = function() {
+        var nivel = this.getAttribute('data-nivel');
+        setDificultad(nivel);
+        nivelActual = nivel;
+        for (var j = 0; j < botonesNivel.length; j++) {
+            botonesNivel[j].classList.remove('selected');
+        }
+        this.classList.add('selected');
+        primerClick = true;
+        primerClickPos = null;
+        iniciarJuego();
+    };
+    if (botonesNivel[i].getAttribute('data-nivel') === nivelActual) {
+        botonesNivel[i].classList.add('selected');
+    }
+}
+
+// Botón inspiración
+var botonInspiracion = document.getElementById('boton-inspiracion');
+botonInspiracion.onclick = function() {
+    window.open('https://minesweeper.online/es/', '_blank');
+};
+
+// Botón contacto
+var botonContacto = document.getElementById('boton-contacto');
+botonContacto.onclick = function() {
+    window.location.href = 'contacto.html';
+};
+
+// Botón Github
+var botonGithub = document.getElementById('boton-github');
+botonGithub.onclick = function() {
+    window.open('https://github.com/MateoSforza/D.A.W', '_blank');
+};
+
+// Eventos del ranking
 botonRanking.onclick = function() {
     mostrarRanking('puntaje');
 };
+
 cerrarRanking.onclick = function() {
     modalRanking.style.display = 'none';
 };
+
 ordenarPuntaje.onclick = function() {
     mostrarRanking('puntaje');
 };
+
 ordenarFecha.onclick = function() {
     mostrarRanking('fecha');
 };
 
-window.onload = function() {
-    mostrarBotonesNivel(false);
-    if (window.location.hash === '#juego') {
-        seccionInicio.style.display = 'none';
-        seccionJuego.style.display = 'block';
-        mostrarBotonesNivel(true);
-    }
-}; 
+// Botón reiniciar
+botonReiniciar.onclick = reiniciarPartida; 
