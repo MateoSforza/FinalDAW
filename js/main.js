@@ -27,7 +27,7 @@ Array.from(document.getElementsByClassName('boton-nivel')).forEach(function (bot
         this.classList.add('selected');
         primerClick = true;
         primerClickPos = null;
-        iniciarJuego();
+        reiniciarPartida();
     };
 });
 

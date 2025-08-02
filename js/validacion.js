@@ -10,7 +10,7 @@ function mostrarErrorNombre() {
     var modal = document.getElementById('modal-mensaje');
     var mensajeFinal = document.getElementById('mensaje-final');
     mensajeFinal.textContent = 'El nombre debe tener al menos 3 letras o números, sin espacios ni símbolos.';
-    modal.style.display = 'block';
+    modal.style.display = 'flex';
     var cerrar = document.getElementById('cerrar-modal');
     cerrar.onclick = function () {
         modal.style.display = 'none';

@@ -250,6 +250,10 @@ body {
     z-index: 1000;
 }
 
+.modal.mostrar {
+    display: flex;
+}
+
 .modal-contenido {
     background: var(--color-modal-bg);
     border-radius: 8px;
@@ -350,8 +354,8 @@ body {
 body.modo-oscuro {
     --color-bg: #2c2c2c;
     --color-panel: #424242;
-    --color-celda: #616161;
-    --color-celda-revelada: #757575;
+    --color-celda: #404040;
+    --color-celda-revelada: #505050;
     --color-celda-borde: #424242;
     --color-celda-borde-revelada: #616161;
     --color-texto: #e0e0e0;
@@ -360,8 +364,8 @@ body.modo-oscuro {
     --color-contador-texto: #ff8a80;
     --color-modal-bg: #424242;
     --color-modal-texto: #e0e0e0;
-    --color-celda-hover: #757575;
-    --color-celda-activa: #9e9e9e;
+    --color-celda-hover: #505050;
+    --color-celda-activa: #606060;
 }
 
 #boton-modo {

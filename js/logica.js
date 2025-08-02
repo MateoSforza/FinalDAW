@@ -215,7 +215,7 @@ function mostrarMensaje(mensaje) {
     var modal = document.getElementById('modal-mensaje');
     var mensajeFinal = document.getElementById('mensaje-final');
     mensajeFinal.textContent = mensaje;
-    modal.style.display = 'block';
+    modal.style.display = 'flex';
     var cerrar = document.getElementById('cerrar-modal');
     cerrar.onclick = function () {
         modal.style.display = 'none';
@@ -322,6 +322,6 @@ function mostrarRanking(orden) {
         fila.insertCell(2).textContent = partida.duracion + 's';
         fila.insertCell(3).textContent = partida.fecha;
     });
-    modalRanking.style.display = 'block';
+    modalRanking.style.display = 'flex';
 }
 
