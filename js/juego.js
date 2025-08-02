@@ -309,7 +309,15 @@ function buscarBotonCelda(f, c) {
 function colocarBandera(f, c, boton) {
     var celda = tablero[f][c];
     if (celda.revelada) return;
+
+    // Intentar poner bandera
+    if (!celda.bandera && minasRestantes === 0) {
+        // No se pueden poner más banderas
+        return;
+    }
+
     celda.bandera = !celda.bandera;
+
     if (celda.bandera) {
         boton.textContent = '🚩';
         minasRestantes--;
@@ -318,9 +326,10 @@ function colocarBandera(f, c, boton) {
         boton.textContent = '';
         minasRestantes++;
     }
-    if (minasRestantes < 0) minasRestantes = 0;
+
     contadorMinas.textContent = minasRestantes;
 }
+
 
 function mostrarTodasLasMinas() {
     for (var f = 0; f < filas; f++) {

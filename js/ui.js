@@ -1,35 +1,62 @@
 'use strict';
 
-// Funcionalidades de UI separadas del HTML
-
-// Cambiar carita de reinicio según estado
-function setCarita(estado) {
-    var icono = document.getElementById('icono-reiniciar');
-    if (estado === 'ganar') icono.textContent = '😎';
-    else if (estado === 'perder') icono.textContent = '😵';
-    else icono.textContent = '🙂';
-}
-window.setCarita = setCarita;
-
-// Guardar estado antes de ir a contacto
-document.getElementById('boton-contacto').onclick = function() {
-    var jugando = document.getElementById('juego').style.display !== 'none';
-    localStorage.setItem('buscaminas_ultimo_estado', jugando ? 'juego' : 'inicio');
-    window.location.href = 'contacto.html';
-};
-
-// Botón cambiar nombre
-document.getElementById('boton-cambiar-nombre').onclick = function() {
-    document.getElementById('juego').style.display = 'none';
-    document.getElementById('inicio-juego').style.display = 'block';
-}; 
-
-// Botón volver al juego desde contacto.html
-var volverJuego = document.getElementById('volver-juego');
-if (volverJuego) {
-    volverJuego.onclick = function(e) {
-        e.preventDefault();
-        var estado = localStorage.getItem('buscaminas_ultimo_estado') || 'inicio';
-        window.location.href = 'index.html' + (estado === 'juego' ? '#juego' : '');
+document.addEventListener('DOMContentLoaded', function () {
+    // Cambiar carita de reinicio según estado
+    window.setCarita = function (estado) {
+        var icono = document.getElementById('icono-reiniciar');
+        if (icono) {
+            if (estado === 'ganar') icono.textContent = '😎';
+            else if (estado === 'perder') icono.textContent = '😵';
+            else icono.textContent = '🙂';
+        }
     };
-}
+
+    // Botón contacto (index.html)
+    var botonContacto = document.getElementById('boton-contacto');
+    if (botonContacto) {
+        botonContacto.onclick = function () {
+            var jugando = document.getElementById('juego')?.style.display !== 'none';
+            localStorage.setItem('buscaminas_ultimo_estado', jugando ? 'juego' : 'inicio');
+            window.location.href = 'contacto.html';
+        };
+    }
+
+    // Botón volver (contacto.html)
+    var volverJuego = document.getElementById('volver-juego');
+    if (volverJuego) {
+        volverJuego.onclick = function (e) {
+            e.preventDefault();
+            var estado = localStorage.getItem('buscaminas_ultimo_estado') || 'inicio';
+            window.location.href = 'index.html' + (estado === 'juego' ? '#juego' : '');
+        };
+    }
+
+    // Botón inspiración (index.html)
+    var botonInspiracion = document.getElementById('boton-inspiracion');
+    if (botonInspiracion) {
+        botonInspiracion.onclick = function () {
+            window.open('https://minesweeper.online/es/', '_blank');
+        };
+    }
+
+    // Botón GitHub (index.html)
+    var botonGithub = document.getElementById('boton-github');
+    if (botonGithub) {
+        botonGithub.onclick = function () {
+            window.open('https://github.com/MateoSforza/D.A.W', '_blank');
+        };
+    }
+
+    // Botón cambiar nombre
+    var botonCambiarNombre = document.getElementById('boton-cambiar-nombre');
+    if (botonCambiarNombre) {
+        botonCambiarNombre.onclick = function () {
+            var juego = document.getElementById('juego');
+            var inicio = document.getElementById('inicio-juego');
+            if (juego && inicio) {
+                juego.style.display = 'none';
+                inicio.style.display = 'block';
+            }
+        };
+    }
+});
