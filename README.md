@@ -4,7 +4,7 @@
 Juego de Buscaminas desarrollado como trabajo práctico final para la materia Desarrollo de Aplicaciones Web.
 
 ## 🎮 Jugar Ahora
-**[🚀 Ver Proyecto en GitHub](https://github.com/MateoSforza/FinalDAW)**  
+**[Ver Proyecto en GitHub](https://github.com/MateoSforza/FinalDAW/index.html)**  
 *Para jugar: descarga el proyecto y abre `index.html` en tu navegador*
 
 ## Características
