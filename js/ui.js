@@ -17,7 +17,13 @@ document.addEventListener('DOMContentLoaded', function () {
         botonContacto.onclick = function () {
             var jugando = document.getElementById('juego')?.style.display !== 'none';
             localStorage.setItem('buscaminas_ultimo_estado', jugando ? 'juego' : 'inicio');
-            window.location.href = 'contacto.html';
+            
+            // Detectar si estamos en HTMLPreview
+            if (window.location.href.includes('htmlpreview.github.io')) {
+                window.open('https://htmlpreview.github.io/?https://github.com/MateoSforza/FinalDAW/blob/main/contacto.html', '_blank');
+            } else {
+                window.location.href = 'contacto.html';
+            }
         };
     }
 
@@ -27,7 +33,13 @@ document.addEventListener('DOMContentLoaded', function () {
         volverJuego.onclick = function (e) {
             e.preventDefault();
             var estado = localStorage.getItem('buscaminas_ultimo_estado') || 'inicio';
-            window.location.href = 'index.html' + (estado === 'juego' ? '#juego' : '');
+            
+            // Detectar si estamos en HTMLPreview
+            if (window.location.href.includes('htmlpreview.github.io')) {
+                window.open('https://htmlpreview.github.io/?https://github.com/MateoSforza/FinalDAW/blob/main/index.html' + (estado === 'juego' ? '#juego' : ''), '_blank');
+            } else {
+                window.location.href = 'index.html' + (estado === 'juego' ? '#juego' : '');
+            }
         };
     }
 
