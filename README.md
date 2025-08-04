@@ -3,10 +3,10 @@
 ## Descripción
 Juego de Buscaminas desarrollado como trabajo práctico final para la materia Desarrollo de Aplicaciones Web.
 
-## 🎮 Jugar Ahora
-**[🎮 JUGAR BUSCAMINAS - Click Aquí](https://htmlpreview.github.io/?https://github.com/MateoSforza/FinalDAW/blob/main/index.html)** *(Se abre en nueva pestaña)*
+## Jugar Ahora
+**[JUGAR BUSCAMINAS - Click Aquí](https://htmlpreview.github.io/?https://github.com/MateoSforza/FinalDAW/blob/main/index.html)** *(Se abre en nueva pestaña)*
 
-**[📂 Ver Código en GitHub](https://github.com/MateoSforza/FinalDAW)**
+**[Ver Código en GitHub](https://github.com/MateoSforza/FinalDAW)**
 
 ## Características
 - ✅ **Modo oscuro/claro** con persistencia en localStorage
