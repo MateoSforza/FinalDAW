@@ -20,6 +20,8 @@ Juego de Buscaminas desarrollado como trabajo práctico final para la materia De
 - JavaScript
 - LocalStorage para persistencia
 
+[Pages](https://MateoSforza.github.io/FinalDAW/index.html)
+
 ## Autores
 - **Marco Portaro** 
 - **Mateo Sforza** 
