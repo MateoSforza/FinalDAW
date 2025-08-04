@@ -3,6 +3,9 @@
 ## Descripción
 Juego de Buscaminas desarrollado como trabajo práctico final para la materia Desarrollo de Aplicaciones Web.
 
+## 🎮 Jugar Ahora
+**[▶️ Pages - Jugar Buscaminas](https://mateosforza.github.io/FinalDAW/)**
+
 ## Características
 - ✅ **Modo oscuro/claro** con persistencia en localStorage
 - ✅ **Tres niveles de dificultad**: Fácil (8x8, 10 minas), Medio (12x12, 25 minas), Difícil (16x16, 40 minas)
