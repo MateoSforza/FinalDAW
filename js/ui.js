@@ -18,10 +18,12 @@ document.addEventListener('DOMContentLoaded', function () {
             var jugando = document.getElementById('juego')?.style.display !== 'none';
             localStorage.setItem('buscaminas_ultimo_estado', jugando ? 'juego' : 'inicio');
             
-            // Detectar si estamos en HTMLPreview
-            if (window.location.href.includes('htmlpreview.github.io')) {
+            // Detectar si estamos en HTMLPreview o en un entorno online
+            if (window.location.protocol === 'https:' && window.location.hostname !== 'localhost') {
+                // Estamos en línea, usar HTMLPreview
                 window.open('https://htmlpreview.github.io/?https://github.com/MateoSforza/FinalDAW/blob/main/contacto.html', '_blank');
             } else {
+                // Estamos en local
                 window.location.href = 'contacto.html';
             }
         };
@@ -34,10 +36,12 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
             var estado = localStorage.getItem('buscaminas_ultimo_estado') || 'inicio';
             
-            // Detectar si estamos en HTMLPreview
-            if (window.location.href.includes('htmlpreview.github.io')) {
+            // Detectar si estamos en HTMLPreview o en un entorno online
+            if (window.location.protocol === 'https:' && window.location.hostname !== 'localhost') {
+                // Estamos en línea, usar HTMLPreview
                 window.open('https://htmlpreview.github.io/?https://github.com/MateoSforza/FinalDAW/blob/main/index.html' + (estado === 'juego' ? '#juego' : ''), '_blank');
             } else {
+                // Estamos en local
                 window.location.href = 'index.html' + (estado === 'juego' ? '#juego' : '');
             }
         };
