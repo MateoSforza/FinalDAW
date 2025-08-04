@@ -38,8 +38,12 @@ document.addEventListener('DOMContentLoaded', function () {
             
             // Detectar si estamos en HTMLPreview o en un entorno online
             if (window.location.protocol === 'https:' && window.location.hostname !== 'localhost') {
-                // Estamos en línea, usar HTMLPreview
-                window.open('https://htmlpreview.github.io/?https://github.com/MateoSforza/FinalDAW/blob/main/index.html' + (estado === 'juego' ? '#juego' : ''), '_blank');
+                // Estamos en línea, cerrar pestaña actual
+                window.close();
+                // Si window.close() no funciona (por seguridad del navegador), redirigir
+                setTimeout(function() {
+                    window.location.href = 'https://htmlpreview.github.io/?https://github.com/MateoSforza/FinalDAW/blob/main/index.html' + (estado === 'juego' ? '#juego' : '');
+                }, 100);
             } else {
                 // Estamos en local
                 window.location.href = 'index.html' + (estado === 'juego' ? '#juego' : '');
