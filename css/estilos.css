@@ -374,20 +374,32 @@ body {
     /* Para pantallas muy pequeñas, mover botón debajo del título */
     .header-principal {
         padding-top: 20px;
-        padding-bottom: 60px;
+        padding-bottom: 20px; /* Reducido de 60px a 20px */
     }
     
     #boton-modo {
         position: absolute;
         top: auto;
-        bottom: 10px;
+        bottom: -15px; /* Más cerca del título */
         left: 50%;
+        right: auto;
         transform: translateX(-50%);
+        /* Agregar propiedades para mantener centrado */
+        margin: 0;
+    }
+    
+    /* Asegurar que el botón se mantenga centrado al hacer hover/click */
+    #boton-modo:hover,
+    #boton-modo:active,
+    #boton-modo:focus {
+        left: 50%;
+        transform: translateX(-50%) scale(1.1);
     }
     
     .titulo-principal {
         font-size: 1.6rem;
         padding: 8px 15px;
+        margin-bottom: 0;
     }
 }
 
