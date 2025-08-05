@@ -349,6 +349,46 @@ body {
         flex-direction: column;
         gap: 8px;
     }
+    
+    /* Reorganizar header para evitar superposición del botón modo */
+    .header-principal {
+        position: relative;
+        padding-top: 60px; /* Espacio para el botón */
+    }
+    
+    #boton-modo {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+    }
+    
+    .titulo-principal {
+        font-size: 1.8rem;
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 400px) {
+    /* Para pantallas muy pequeñas, mover botón debajo del título */
+    .header-principal {
+        padding-top: 20px;
+        padding-bottom: 60px;
+    }
+    
+    #boton-modo {
+        position: absolute;
+        top: auto;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .titulo-principal {
+        font-size: 1.6rem;
+        padding: 8px 15px;
+    }
 }
 
 body.modo-oscuro {

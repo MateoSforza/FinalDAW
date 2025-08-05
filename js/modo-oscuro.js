@@ -1,5 +1,16 @@
 'use strict';
 
+// Inicializar modo oscuro desde localStorage al cargar la página
+try {
+    if (localStorage.getItem('modoOscuro') === 'true') {
+        document.addEventListener('DOMContentLoaded', function () {
+            document.body.classList.add('modo-oscuro');
+        });
+    }
+} catch (e) {
+    // Error silencioso si localStorage no está disponible
+}
+
 // Funcionalidad del modo oscuro
 document.addEventListener('DOMContentLoaded', function () {
     var botonModo = document.getElementById('boton-modo');
