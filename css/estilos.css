@@ -374,19 +374,21 @@ body {
 @media (max-width: 400px) {
     /* Para pantallas muy pequeñas, mover botón debajo del título */
     .header-principal {
+        position: relative;
         padding-top: 20px;
-        padding-bottom: 20px;
+        padding-bottom: 50px; /* Espacio para el botón debajo */
     }
     
     #boton-modo {
-        position: fixed;
-        top: 65px; /* Justo debajo del título celeste */
+        position: absolute;
+        top: auto;
+        bottom: 10px; /* Pegado al título */
         left: 50%;
         right: auto;
         transform: translateX(-50%);
-        z-index: 1000;
+        z-index: 100;
         margin: 0;
-        /* Asegurar que sea visible siempre */
+        /* Estilo mejorado para que se vea bien */
         background: rgba(255, 255, 255, 0.9);
         border: 2px solid #00cfee;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -407,9 +409,9 @@ body {
         margin-bottom: 0;
     }
     
-    /* Ajustar el contenido para que no se tape con el botón fijo */
+    /* Quitar el padding-top del body */
     body {
-        padding-top: 100px;
+        padding-top: 0;
     }
     
     /* Estilo especial para modo oscuro en móvil */
