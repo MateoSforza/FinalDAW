@@ -357,11 +357,12 @@ body {
     }
     
     #boton-modo {
-        position: absolute;
+        position: fixed;
         top: 10px;
         left: 50%;
         right: auto;
         transform: translateX(-50%);
+        z-index: 1000;
     }
     
     .titulo-principal {
@@ -374,32 +375,52 @@ body {
     /* Para pantallas muy pequeñas, mover botón debajo del título */
     .header-principal {
         padding-top: 20px;
-        padding-bottom: 20px; /* Reducido de 60px a 20px */
+        padding-bottom: 20px;
     }
     
     #boton-modo {
-        position: absolute;
-        top: auto;
-        bottom: -15px; /* Más cerca del título */
+        position: fixed;
+        top: 65px; /* Justo debajo del título celeste */
         left: 50%;
         right: auto;
         transform: translateX(-50%);
-        /* Agregar propiedades para mantener centrado */
+        z-index: 1000;
         margin: 0;
+        /* Asegurar que sea visible siempre */
+        background: rgba(255, 255, 255, 0.9);
+        border: 2px solid #00cfee;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
     
-    /* Asegurar que el botón se mantenga centrado al hacer hover/click */
+    /* Mantener centrado en todos los estados */
     #boton-modo:hover,
     #boton-modo:active,
     #boton-modo:focus {
         left: 50%;
         transform: translateX(-50%) scale(1.1);
+        background: rgba(255, 255, 255, 1);
     }
     
     .titulo-principal {
         font-size: 1.6rem;
         padding: 8px 15px;
         margin-bottom: 0;
+    }
+    
+    /* Ajustar el contenido para que no se tape con el botón fijo */
+    body {
+        padding-top: 100px;
+    }
+    
+    /* Estilo especial para modo oscuro en móvil */
+    body.modo-oscuro #boton-modo {
+        background: rgba(44, 44, 44, 0.9);
+        border-color: #ffd54f;
+        color: #ffd54f;
+    }
+    
+    body.modo-oscuro #boton-modo:hover {
+        background: rgba(44, 44, 44, 1);
     }
 }
 
