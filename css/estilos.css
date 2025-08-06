@@ -397,7 +397,7 @@ body.modo-oscuro {
     cursor: pointer;
     font-size: 1.5rem;
     padding: 10px 12px;
-    position: fixed;
+    position: absolute;
     right: 0;
     top: 100px;
     transition: all 0.2s;
