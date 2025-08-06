@@ -350,81 +350,26 @@ body {
         gap: 8px;
     }
     
-    /* Reorganizar header para evitar superposición del botón modo */
-    .header-principal {
-        position: relative;
-        padding-top: 60px; /* Espacio para el botón */
-    }
-    
-    #boton-modo {
-        position: fixed;
-        top: 10px;
-        left: 50%;
-        right: auto;
-        transform: translateX(-50%);
-        z-index: 1000;
-    }
-    
     .titulo-principal {
         font-size: 1.8rem;
         padding: 10px 20px;
     }
+    
+    /* Bajar el botón un poco más para evitar choques */
+    #boton-modo {
+        top: 140px;
+    }
 }
 
 @media (max-width: 400px) {
-    /* Para pantallas muy pequeñas, mover botón debajo del título */
-    .header-principal {
-        position: relative;
-        padding-top: 20px;
-        padding-bottom: 10px; /* Muy poco espacio */
-        margin-bottom: 40px; /* Espacio para el botón */
-    }
-    
-    #boton-modo {
-        position: absolute;
-        top: auto;
-        bottom: -20px; /* Justo pegado al título */
-        left: 50%;
-        right: auto;
-        transform: translateX(-50%);
-        z-index: 100;
-        margin: 0;
-        /* Estilo mejorado para que se vea bien */
-        background: rgba(255, 255, 255, 0.95);
-        border: 2px solid #00cfee;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-        border-radius: 50%;
-    }
-    
-    /* Mantener centrado en todos los estados */
-    #boton-modo:hover,
-    #boton-modo:active,
-    #boton-modo:focus {
-        left: 50%;
-        transform: translateX(-50%) scale(1.1);
-        background: rgba(255, 255, 255, 1);
-    }
-    
     .titulo-principal {
         font-size: 1.6rem;
         padding: 8px 15px;
-        margin-bottom: 0;
     }
     
-    /* Sin padding extra */
-    body {
-        padding-top: 0;
-    }
-    
-    /* Estilo especial para modo oscuro en móvil */
-    body.modo-oscuro #boton-modo {
-        background: rgba(44, 44, 44, 0.95);
-        border-color: #ffd54f;
-        color: #ffd54f;
-    }
-    
-    body.modo-oscuro #boton-modo:hover {
-        background: rgba(44, 44, 44, 1);
+    /* Bajar aún más el botón en pantallas muy pequeñas */
+    #boton-modo {
+        top: 160px;
     }
 }
 
@@ -446,21 +391,25 @@ body.modo-oscuro {
 }
 
 #boton-modo {
-    background: none;
-    border: none;
-    border-radius: 50%;
+    background: #ff9800;
+    border: 2px solid #f57c00;
+    border-radius: 8px 0 0 8px;
     cursor: pointer;
     font-size: 1.5rem;
-    padding: 8px;
+    padding: 10px 12px;
     position: fixed;
-    right: 20px;
-    top: 20px;
-    transition: transform 0.2s;
+    right: 0;
+    top: 100px;
+    transition: all 0.2s;
     z-index: 100;
+    box-shadow: -2px 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 #boton-modo:hover {
-    transform: scale(1.1);
+    background: #fb8c00;
+    transform: translateX(-10px);
+    box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.3);
+    padding-left: 20px;
 }
 
 .boton-nivel {
@@ -556,6 +505,15 @@ body.modo-oscuro {
 
 body.modo-oscuro #icono-modo {
     color: #ffd54f;
+}
+
+body.modo-oscuro #boton-modo {
+    background: #ff6f00;
+    border-color: #e65100;
+}
+
+body.modo-oscuro #boton-modo:hover {
+    background: #ff8f00;
 }
 
 #contacto-main {
