@@ -355,8 +355,9 @@ body {
         padding: 10px 20px;
     }
     
-    /* Bajar el botón un poco más para evitar choques */
+    /* Bajar el botón un poco más para evitar choques y hacerlo fijo en móvil */
     #boton-modo {
+        position: fixed;
         top: 140px;
     }
 }
@@ -367,8 +368,9 @@ body {
         padding: 8px 15px;
     }
     
-    /* Bajar aún más el botón en pantallas muy pequeñas */
+    /* Bajar aún más el botón en pantallas muy pequeñas y mantenerlo fijo */
     #boton-modo {
+        position: fixed;
         top: 160px;
     }
 }
