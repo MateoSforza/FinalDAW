@@ -358,7 +358,7 @@ body {
     /* Bajar el botón un poco más para evitar choques y hacerlo fijo en móvil */
     #boton-modo {
         position: absolute !important;
-        top: 250px;
+        top: 350px !important;
     }
 }
 
@@ -371,7 +371,7 @@ body {
     /* Bajar aún más el botón en pantallas muy pequeñas y mantenerlo fijo */
     #boton-modo {
         position: absolute !important;
-        top: 270px !important;
+        top: 380px !important;
     }
 }
 
@@ -409,9 +409,7 @@ body.modo-oscuro {
 
 #boton-modo:hover {
     background: #fb8c00;
-    transform: translateX(-10px);
     box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.3);
-    padding-left: 20px;
 }
 
 .boton-nivel {
