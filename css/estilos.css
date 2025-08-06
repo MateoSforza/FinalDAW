@@ -371,7 +371,7 @@ body {
     /* Bajar aún más el botón en pantallas muy pequeñas y mantenerlo fijo */
     #boton-modo {
         position: absolute !important;
-        top: 160px;
+        top: 200px;
     }
 }
 
